@@ -1,7 +1,3 @@
-from cgitb import small
-from ctypes.wintypes import DOUBLE
-from random import choice
-from re import T
 import myPlane
 import pygame
 import sys
