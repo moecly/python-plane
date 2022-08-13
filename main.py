@@ -5,6 +5,7 @@ import enemy
 import bullet
 import traceback
 import supply
+import random
 
 pygame.init()
 pygame.mixer.init()
@@ -193,14 +194,14 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and not paused:
                     if bomb_num:
-                        bomb_num = bomb_num - 1
+                        # bomb_num = bomb_num - 1
                         bomb_sound.play()
                         for each in enemies:
                             if each.rect.bottom > 0:
                                 each.active = False
             elif event.type == SUPPLY_TIME:
                 supply_sound.play()
-                if choice([True, False]):
+                if random.choice([True, False]):
                     bomb_supply.reset()
                 else:
                     bullet_supply.reset()
@@ -228,8 +229,9 @@ def main():
                     recorded = True
                     with open("record.txt", 'r') as f:
                         record_score = int(f.read())
-                    with open("record.txt", 'w') as f:
-                        f.write(str(score)) 
+                    if score > record_score:
+                        with open("record.txt", 'w') as f:
+                            f.write(str(score)) 
                 # 绘制游戏结束界面
                 record_score_text = score_font.render("Best: %d" % record_score, True, WHITE)
                 screen.blit(record_score_text, (50, 50))
@@ -316,7 +318,7 @@ def main():
             # 增加小型飞机速度
             # inc_speed(small_enemies, 1)
         if level == 2 and score >= 300000:
-            level == 3
+            level = 3
             upgrade_sound.play()
             # 增加 5 架小形飞机, 3 架中型飞机, 2 架大型飞机
             add_all_enemies(small_enemies, mid_enemies, big_enemies, enemies, 5, 3, 2)
@@ -324,7 +326,7 @@ def main():
             inc_speed(small_enemies, 1)
             inc_speed(mid_enemies, 1)
         if level == 3 and score >= 600000:
-            level == 4
+            level = 4
             upgrade_sound.play()
             # 增加 5 架小形飞机, 3 架中型飞机, 2 架大型飞机
             add_all_enemies(small_enemies, mid_enemies, big_enemies, enemies, 5, 3, 2)
@@ -332,7 +334,7 @@ def main():
             inc_speed(small_enemies, 1)
             inc_speed(mid_enemies, 1)
         if level == 4 and score >= 1200000:
-            level == 5
+            level = 5
             upgrade_sound.play()
             # 增加 5 架小形飞机, 3 架中型飞机, 2 架大型飞机
             add_all_enemies(small_enemies, mid_enemies, big_enemies, enemies, 5, 3, 2)
